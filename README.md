@@ -61,6 +61,7 @@
 * charts/values.yaml
 * Dockerfile
 * Jenkinsfile
+
 **참고** _charts에 있는 모든 요소들은 helm을 알아야 합니다.(https://https://helm.sh)_
 1. git push 하여 repository에 등록합니다.
 
