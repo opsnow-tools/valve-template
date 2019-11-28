@@ -18,6 +18,7 @@
 
 디폴트 템플릿을 참고하여 자신만의 템플릿을 만들 수 있습니다.
 
+```
 .
 ├── java-mvn-lib
 │   └── Jenkinsfile
@@ -130,3 +131,4 @@
     ├── draftignore
     ├── draft.toml
     └── Jenkinsfile
+```
