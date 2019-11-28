@@ -62,8 +62,8 @@
 * Dockerfile
 * Jenkinsfile
 
-**참고** _charts에 있는 모든 요소들은 helm을 알아야 합니다.(https://https://helm.sh)_
-1. git push 하여 repository에 등록합니다.
+>> **참고** _charts에 있는 모든 요소들은 helm을 알아야 합니다.(https://https://helm.sh)_
+4. git push 하여 repository에 등록합니다.
 
 ### Dockerfile, Jenkinsfile 또는 Jenkinsfile만 필요한 Template
 charts를 필요로 하지 않는 애플리케이션이 있을 수 있습니다. 해당되는 애플리케이션은 R-batch, terraform 과 같은 template을 참고하여 위와 같은 방식으로 Repository에 등록합니다.
