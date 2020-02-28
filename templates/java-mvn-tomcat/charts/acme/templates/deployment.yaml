@@ -83,6 +83,10 @@ spec:
           - secretRef:
               name: {{ include "fullname" . }}
 {{ end }}
+{{ if .Values.dockerRegistrySecret }}
+      imagePullSecrets:
+      - name: {{ .Values.dockerRegistrySecret }}
+{{ end }}
 {{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | nindent 8 }}

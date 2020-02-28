@@ -11,6 +11,8 @@ image:
   tag: latest
   pullPolicy: Always
 
+dockerRegistrySecret: regcred
+
 labels: {}
 annotations: {}
 
