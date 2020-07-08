@@ -1,0 +1,38 @@
+fullnameOverride: acme
+
+keycloak:
+  ## Username for the initial Keycloak admin user
+  username: admin
+  ## Password for the initial Keycloak admin user. Applicable only if existingSecret is not set.
+  ## If not set, a random 10 characters password will be used
+  password: password
+
+  fullnameOverride: acme
+
+  image:
+    tag: "10.0.1"
+
+  ingress:
+    enabled: false
+
+   ## Persistence configuration
+   persistence:
+     # If true, the Postgres chart is deployed
+     deployPostgres: true
+
+ postgresql:
+   ### PostgreSQL User to create.
+   postgresqlUsername: admin
+   ## PostgreSQL Password for the new user.
+   ## If not set, a random 10 characters password will be used.
+   postgresqlPassword: password
+   ## PostgreSQL Database to create.
+   postgresqlDatabase: keycloak
+   ## Persistent Volume Storage configuration.
+   ## ref: https://kubernetes.io/docs/user-guide/persistent-volumes
+   persistence:
+     ## Enable PostgreSQL persistence using Persistent Volume Claims.
+     enabled: true
+     accessMode: ReadWriteOnce
+     existingClaim: acme-postgresql
+     storageClass: efs

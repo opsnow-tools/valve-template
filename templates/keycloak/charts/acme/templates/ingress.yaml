@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/whitelist-source-range: 15.164.254.140/32, 15.164.46.104/32, 15.164.136.31/32,  54.180.194.41/32, 3.213.183.154/32, 3.214.131.77/32, 3.214.254.242/32, 58.151.93.9/32, 58.151.93.2/32, 13.125.72.21/32, 54.180.54.18/32, 54.223.55.143/32, 54.223.8.52/32
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "128k"
+  labels:
+    app.kubernetes.io/instance: keycloak
+    app.kubernetes.io/managed-by: Tiller
+    app.kubernetes.io/name: keycloak
+    app.kubernetes.io/version: 10.0.0
+    helm.sh/chart: keycloak-8.2.2
+  name: keycloak
+spec:
+  rules:
+    - host: keycloak.coruscant.opsnow.com
+      http:
+        paths:
+          - backend:
+              serviceName: keycloak-http
+              servicePort: http
+            path: /
