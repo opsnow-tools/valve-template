@@ -1,8 +1,13 @@
-# Dockerfile
-
-FROM tomcat:8-jre8-alpine
-ENV JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-RUN rm -rf /usr/local/tomcat/webapps/*
-RUN apk add --no-cache bash curl
-EXPOSE 8080
-COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
+FROM python:3.6-slim
+RUN apt-get update && \
+    apt-get -y install gcc python3-dev && \
+    # Clean up
+    apt-get autoremove -y && \
+    apt-get clean -y && \
+    rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+EXPOSE 5000
+CMD ["python", "app.py"]
