@@ -4,4 +4,4 @@ COPY ./requirements/. .
 WORKDIR /app
 COPY ./main.py .
 EXPOSE 5000
-CMD ["python", "app.py"]
+CMD ["python", "main.py"]
