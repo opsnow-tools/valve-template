@@ -101,6 +101,10 @@ env: {}
   # - name: MESSAGE
   #   value: "hello world"
 
+pinpoint:
+  enabled: false
+  collectorIp: pinpoint-collector.monitor.svc.cluster.local
+
 configmap:
   enabled: false
   data: {}
