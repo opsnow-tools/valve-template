@@ -101,6 +101,13 @@ env: {}
   # - name: MESSAGE
   #   value: "hello world"
 
+java:
+  options: "-XX:InitialRAMPercentage=40.0 -XX:MaxRAMPercentage=80.0"
+
+pinpoint:
+  enabled: false
+  collectorIp: pinpoint-collector.monitor.svc.cluster.local
+
 configmap:
   enabled: false
   data: {}

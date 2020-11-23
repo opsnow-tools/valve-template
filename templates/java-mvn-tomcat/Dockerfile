@@ -1,7 +1,9 @@
 # Dockerfile
+FROM pinpointdocker/pinpoint-agent:2.1.0 AS base
 
 FROM tomcat:8-jre8-alpine
 ENV JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
+COPY --from=base /pinpoint-agent /pinpoint-agent
 RUN rm -rf /usr/local/tomcat/webapps/*
 RUN apk add --no-cache bash curl
 EXPOSE 8080

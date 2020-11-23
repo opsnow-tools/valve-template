@@ -69,6 +69,13 @@ spec:
             value: {{ .Values.namespace }}
           - name: IMAGE_TAG
             value: {{ .Values.image.tag }}
+{{ if .Values.pinpoint.enabled }}
+          - name: JAVA_OPTS
+            value: "-javaagent:/pinpoint-agent/pinpoint-bootstrap.jar -Dprofiler.transport.grpc.collector.ip={{ .Values.pinpoint.collectorIp }} -Dpinpoint.agentId={{ include "agentid" . }} -Dpinpoint.applicationName={{ .Chart.Name }} {{ .Values.java.options }}"
+{{ else }}
+          - name: JAVA_OPTS
+            value: {{ .Values.java.options }}
+{{ end }}
 {{- with .Values.env }}
 {{ toYaml . | indent 10 }}
 {{- end }}

@@ -30,3 +30,8 @@ Create chart name and version as used by the chart label.
 {{- define "chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "agentid" -}}
+{{- $uid := randAlphaNum 8 -}}
+{{- printf "%s-%s" .Chart.Name $uid | trunc 23 -}}
+{{- end -}}

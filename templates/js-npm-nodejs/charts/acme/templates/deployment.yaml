@@ -69,6 +69,14 @@ spec:
             value: {{ .Values.namespace }}
           - name: IMAGE_TAG
             value: {{ .Values.image.tag }}
+{{ if .Values.pinpoint.enabled }}
+          - name: PINPOINT_COLLECTOR_IP
+            value: "{{ .Values.pinpoint.collectorIp }}"
+          - name: PINPOINT_AGENT_ID
+            value: "{{ inclued "agentid" . }}"
+          - name: PINPOINT_APPLICATION_NAME
+            value: "{{ .Chart.Name }}"
+{{ end }}
 {{- with .Values.env }}
 {{ toYaml . | indent 10 }}
 {{- end }}
