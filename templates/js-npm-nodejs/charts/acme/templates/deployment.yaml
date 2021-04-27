@@ -76,6 +76,8 @@ spec:
             value: "{{ inclued "agentid" . }}"
           - name: PINPOINT_APPLICATION_NAME
             value: "{{ .Chart.Name }}"
+          - name: PROFILER_SAMPLING_RATE
+            value: "{{ .Values.pinpoint.sampling }}"
 {{ end }}
 {{- with .Values.env }}
 {{ toYaml . | indent 10 }}

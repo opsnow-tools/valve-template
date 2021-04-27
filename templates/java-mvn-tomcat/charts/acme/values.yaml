@@ -106,6 +106,7 @@ java:
 
 pinpoint:
   enabled: false
+  sampling: 1
   collectorIp: pinpoint-collector.monitor.svc.cluster.local
 
 configmap:
