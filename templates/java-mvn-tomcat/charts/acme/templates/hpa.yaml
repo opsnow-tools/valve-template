@@ -1,5 +1,5 @@
 {{ if .Values.autoscaling.enabled }}
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: {{ include "fullname" . }}
@@ -20,9 +20,25 @@ spec:
     - type: Resource
       resource:
         name: memory
-        targetAverageUtilization: {{ .Values.autoscaling.mem }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.autoscaling.mem }}
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: {{ .Values.autoscaling.cpu }}
-{{ end }}
+        target:
+          type: Utilization
+          averageUtilization: {{ .Values.autoscaling.cpu }}
+    {{ if .Values.autoscaling.custom }}
+    - type: Object
+      object:
+        describedObject:
+          kind: Service
+          name: {{ include "fullname" . }}
+        metric:
+          name: nginx_ingress_controller_requests
+        target:
+          type: AverageValue
+          value: {{ .Values.autoscaling.custom.request }}
+  {{ end }}
+  {{ end }}
