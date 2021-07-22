@@ -25,7 +25,7 @@ pdb: {}
 service:
   type: ClusterIP
   externalPort: 80
-  internalPort: 3000
+  internalPort: 8080
   annotations: {}
   labels: {}
 
@@ -53,25 +53,25 @@ autoscaling:
 
 resources:
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 250m
+    memory: 1024Mi
   limits:
-    cpu: 120m
-    memory: 153Mi
+    cpu: 300m
+    memory: 1252Mi
 
 readinessProbe:
   httpGet:
     path: /
-    port: 3000
-  initialDelaySeconds: 3
+    port: 8080
+  initialDelaySeconds: 60
   periodSeconds: 10
   failureThreshold: 3
 
 livenessProbe:
   httpGet:
     path: /
-    port: 3000
-  initialDelaySeconds: 3
+    port: 8080
+  initialDelaySeconds: 60
   periodSeconds: 10
   failureThreshold: 3
 
@@ -80,12 +80,12 @@ livenessProbe:
 #     command:
 #     - cat
 #     - /tmp/healthy
-#   initialDelaySeconds: 3
+#   initialDelaySeconds: 15
 #   periodSeconds: 10
 # livenessProbe:
 #   tcpSocket:
-#     port: 3000
-#   initialDelaySeconds: 3
+#     port: 8080
+#   initialDelaySeconds: 15
 #   periodSeconds: 10
 
 # hostNetwork: true
@@ -99,7 +99,10 @@ affinity: {}
 
 env: {}
   # - name: MESSAGE
-  #   value: "hello world"
+#   value: "hello world"
+
+java:
+  options: "-XX:InitialRAMPercentage=40.0 -XX:MaxRAMPercentage=80.0"
 
 pinpoint:
   enabled: false
@@ -109,9 +112,31 @@ pinpoint:
 configmap:
   enabled: false
   data: {}
-    # MESSAGE: "hello world"
+  # MESSAGE: "hello world"
 
 secret:
   enabled: false
   data: {}
-    # SECRET: "c2VjcmV0IHdvcmxkCg=="
+  # SECRET: "c2VjcmV0IHdvcmxkCg=="
+
+canary: {}
+#  enabled: false
+#  provider: nginx
+#  progressDeadlineSeconds: 90
+#  ## Canary
+#  analysis:
+#    interval: 10s
+#    threshold: 10
+#    maxWeight: 50
+#    stepWeight: 5
+#    metrics:
+#      - name: request-success-rate
+#        thresholdRange:
+#          min: 99
+#        interval: 2m
+#    webhooks:
+#      - name: load-test
+#        url: http://flagger-loadtester.devops/
+#        timeout: 5s
+#        metadata:
+#          cmd: "hey -z 1m -q 10 -c 2 https://{{ first .Values.ingress.hosts }}"

@@ -1,0 +1,38 @@
+{{ if and .Values.canary.enabled }}
+apiVersion: flagger.app/v1beta1
+kind: Canary
+metadata:
+  name: {{ include "fullname" . }}
+spec:
+  revertOnDeletion: {{ .Values.canary.revertOnDeletion }}
+  provider: {{ .Values.canary.provider }}
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ include "fullname" . }}
+  ingressRef:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    name: {{ include "fullname" . }}
+  autoscalerRef:
+    apiVersion: autoscaling/v2beta2
+    kind: HorizontalPodAutoscaler
+    name: {{ include "fullname" . }}
+  progressDeadlineSeconds: {{ .Values.canary.progressDeadlineSeconds }}
+  service:
+    port: {{ .Values.service.externalPort }}
+    targetPort: {{ .Values.service.internalPort }}
+  analysis:
+    interval: {{ .Values.canary.analysis.interval }}
+    threshold: {{ .Values.canary.analysis.threshold }}
+    maxWeight: {{ .Values.canary.analysis.maxWeight }}
+    stepWeight: {{ .Values.canary.analysis.stepWeight }}
+    {{- if .Values.canary.analysis.metrics }}
+    metrics:
+    {{ toYaml .Values.canary.analysis.metrics | indent 6 }}
+    {{- end }}
+    webhooks:
+    {{- if .Values.canary.analysis.webhooks }}
+    {{ toYaml .Values.canary.analysis.webhooks | indent 6 }}
+  {{- end }}
+  {{ end }}
