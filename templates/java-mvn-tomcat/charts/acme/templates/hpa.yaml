@@ -29,7 +29,7 @@ spec:
         target:
           type: Utilization
           averageUtilization: {{ .Values.autoscaling.cpu }}
-    {{ if .Values.autoscaling.custom }}
+{{ if .Values.autoscaling.custom }}
     - type: Object
       object:
         describedObject:
@@ -40,5 +40,5 @@ spec:
         target:
           type: AverageValue
           value: {{ .Values.autoscaling.custom.request }}
-  {{ end }}
-  {{ end }}
+{{ end }}
+{{ end }}
