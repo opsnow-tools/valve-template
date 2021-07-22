@@ -29,4 +29,16 @@ spec:
         target:
           type: Utilization
           averageUtilization: {{ .Values.autoscaling.cpu }}
+{{ if .Values.autoscaling.custom }}
+    - type: Object
+      object:
+        describedObject:
+          kind: Service
+          name: {{ include "fullname" . }}
+        metric:
+          name: nginx_ingress_controller_requests
+        target:
+          type: AverageValue
+          value: {{ .Values.autoscaling.custom.request }}
+{{ end }}
 {{ end }}

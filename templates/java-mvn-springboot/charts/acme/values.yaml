@@ -50,6 +50,9 @@ autoscaling:
   max: 5
   cpu: 80
   mem: 80
+  custom: {}
+    # request: "15000m"
+
 
 resources:
   requests:
