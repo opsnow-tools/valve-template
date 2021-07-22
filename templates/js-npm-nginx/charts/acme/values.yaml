@@ -113,9 +113,8 @@ secret:
 
 canary: {}
 #  enabled: false
-#  revertOnDeletion: true
 #  provider: nginx
-#  progressDeadlineSeconds: 60
+#  progressDeadlineSeconds: 90
 #  ## Canary
 #  analysis:
 #    interval: 10s
@@ -129,7 +128,7 @@ canary: {}
 #        interval: 2m
 #    webhooks:
 #      - name: load-test
-#        url: http://flagger-loadtester/
+#        url: http://flagger-loadtester.devops/
 #        timeout: 5s
 #        metadata:
-#          cmd: "hey -z 1m -q 10 -c 2 https://{{ first .Values.ingress.subdomain.basedomain }}"
+#          cmd: "hey -z 1m -q 10 -c 2 https://{{ first .Values.ingress.hosts }}"
