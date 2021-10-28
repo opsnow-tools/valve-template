@@ -20,6 +20,14 @@ pod:
   labels: {}
   annotations: {}
 
+serviceaccount:
+
+command: {}
+# - "/bin/sh"
+# - "-c"
+args: {}
+# - ". /vault/secrets/config && /docker-entrypoint.sh nginx -g daemon off;"
+
 pdb: {}
 
 service:

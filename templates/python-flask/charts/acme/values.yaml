@@ -20,6 +20,14 @@ pod:
   labels: {}
   annotations: {}
 
+serviceaccount:
+
+command: {}
+# - "/bin/sh"
+# - "-c"
+args: {}
+# - ". /vault/secrets/config && python main.py"
+
 pdb: {}
 
 service:

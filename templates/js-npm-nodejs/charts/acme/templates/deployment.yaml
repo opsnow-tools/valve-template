@@ -44,10 +44,20 @@ spec:
 {{ toYaml . | indent 8 }}
 {{- end }}
     spec:
+{{ if .Values.serviceaccount }}
+      serviceAccountName: {{ .Values.serviceaccount }}
+{{- end }}
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{ if .Values.command }}
+        command:
+{{ toYaml .Values.command | indent 10 }}
+{{- end }}
+{{ if .Values.command }}
+        args:
+{{ toYaml .Values.args | indent 10 }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
 {{ if .Values.hostNetwork }}

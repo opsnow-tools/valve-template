@@ -20,6 +20,14 @@ pod:
   labels: {}
   annotations: {}
 
+serviceaccount:
+
+command: {}
+  # - "/bin/sh"
+# - "-c"
+args: {}
+# - ". /vault/secrets/config && exec java $JAVA_OPTS -jar ROOT.jar"
+
 pdb: {}
 
 service:
