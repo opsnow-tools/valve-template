@@ -21,7 +21,7 @@ spec:
     rollingUpdate:
       maxSurge: 1
       maxUnavailable: 0
-    type: RollingUpdate  
+    type: RollingUpdate
   selector:
     matchLabels:
       app: {{ include "fullname" . }}
@@ -58,6 +58,7 @@ spec:
 {{ if .Values.command }}
         args:
 {{ toYaml .Values.args | indent 10 }}
+{{- end }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
 {{ if .Values.hostNetwork }}
@@ -83,7 +84,7 @@ spec:
           - name: PINPOINT_COLLECTOR_IP
             value: "{{ .Values.pinpoint.collectorIp }}"
           - name: PINPOINT_AGENT_ID
-            value: "{{ inclued "agentid" . }}"
+            value: "{{ include "agentid" . }}"
           - name: PINPOINT_APPLICATION_NAME
             value: "{{ .Chart.Name }}"
           - name: PROFILER_SAMPLING_RATE
